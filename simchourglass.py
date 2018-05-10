@@ -42,7 +42,7 @@ COLORS = {
     'Mage':         '#69CCF0',
     'Monk':         '#00FF96',
     'Paladin':      '#F58CBA',
-    'Priest':       '#EEEEEE',
+    'Priest':       '#FFFFFF',
     'Rogue':        '#FFF569',
     'Shaman':       '#0070DE',
     'Warlock':      '#9482C9',
@@ -66,6 +66,7 @@ for profile in PROFILES:
 
 # Plotting
 
+plt.style.use('dark_background')
 fig = plt.figure()
 ax = plt.subplot(111)
 
@@ -88,7 +89,7 @@ for profile in PROFILES:
 
         color = COLORS[class_]
         line_style = LINE_STYLES[class_line_style[class_]]
-        ax.plot(x, y,
+        ax.plot(x[7:], y[7:],
                 color=color,
                 linestyle=line_style,
                 label=f'{class_}:{spec}',
@@ -98,4 +99,8 @@ for profile in PROFILES:
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
 ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+plt.xlabel('Killtime (min)')
+plt.ylabel('DPS')
+
 plt.show()

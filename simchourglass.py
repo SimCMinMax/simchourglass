@@ -25,9 +25,15 @@ TANK_PROFILES = [
     'Paladin_Protection',
 ]
 
-PROFILES = [p for p in os.listdir(PROFILES_PATH)
-            if os.path.isfile(os.path.join(PROFILES_PATH, p))
-            and not any(tank in p for tank in TANK_PROFILES)]
+PROFILES_BLACKLIST = [
+    'T21_Warlock.simc',
+]
+
+PROFILES = [p for p in os.listdir(PROFILES_PATH) if (
+    os.path.isfile(os.path.join(PROFILES_PATH, p))
+    and not any(tank in p for tank in TANK_PROFILES)
+    and p not in PROFILES_BLACKLIST
+)]
 
 MIN_DURATION = 60
 MAX_DURATION = 720

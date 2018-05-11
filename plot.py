@@ -9,6 +9,8 @@ import os
 import json
 import matplotlib.pyplot as plt
 
+from statistics import stdev
+
 from contants import PROFILES, JSON_FOLDER, COLORS, LINE_STYLES
 
 # Absolute plot
@@ -104,5 +106,24 @@ ax.xaxis.grid(alpha=0.5, linestyle='--')
 
 plt.xlabel('Killtime (min)')
 plt.ylabel('DPS')
+
+plt.show()
+
+# Barplot time sensitivity
+
+fig = plt.figure()
+
+time_data = []
+
+for d in profiles_data:
+    dev = stdev(d[0][1])
+    time_data += [[dev, d[1]['label'], d[1]['color']]]
+
+[devs, labels, colors] = list(zip(*sorted(time_data, key=lambda x: x[0])))
+
+plt.bar(range(len(devs)), devs, align='center', color=colors)
+plt.xticks(range(len(devs)), labels)
+fig.autofmt_xdate(bottom=0.2, rotation=30, ha='right')
+plt.ylabel('Time sensitivity')
 
 plt.show()
